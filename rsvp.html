@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confirmación | Brenda y Víctor</title>
+    <meta name="description" content="Formulario de confirmación de asistencia paso a paso." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="boda-page is-visible rsvp-page">
+    <div class="page-shell">
+      <main id="contenido" class="rsvp-wizard-main">
+        <section class="section section--rsvp-wizard">
+          <div class="section__heading">
+            <p class="eyebrow">Confirmación de asistencia</p>
+            <div class="inline-actions">
+              <a class="button button--ghost" href="boda.html#confirmacion">Volver a la página de boda</a>
+            </div>
+            <p class="share-intro">Primero completáis los datos de la persona invitada y después los de cada acompañante.</p>
+          </div>
+
+          <article class="card rsvp-wizard" data-rsvp-wizard>
+            <div class="rsvp-wizard__progress" data-wizard-progress>
+              Paso 1 de 2
+            </div>
+
+            <form class="rsvp-wizard__setup" data-setup-form>
+              <label class="field">
+                <span>Nombre de la persona invitada</span>
+                <input type="text" name="primaryName" placeholder="Ej. Juan Pérez" required />
+              </label>
+
+              <label class="field">
+                <span>Número de acompañantes (máximo 5)</span>
+                <select name="companions" required>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </label>
+
+              <div class="inline-actions">
+                <button class="button button--primary" type="submit">Empezar formulario</button>
+              </div>
+            </form>
+
+            <form class="rsvp-wizard__person" data-person-form hidden novalidate>
+              <h3 class="rsvp-wizard__person-title" data-person-title>Persona 1</h3>
+
+              <div class="rsvp-wizard__question-progress" data-question-progress></div>
+
+              <div class="rsvp-step" data-step="name">
+                <label class="field">
+                  <span>Nombre</span>
+                  <input type="text" name="name" required />
+                </label>
+              </div>
+
+              <div class="rsvp-step" data-step="age">
+                <label class="field">
+                  <span>Edad</span>
+                  <input type="number" name="age" min="0" max="120" required />
+                </label>
+              </div>
+
+              <div class="rsvp-step" data-step="attendance">
+                <fieldset class="rsvp-choice">
+                  <legend>¿Asistirá?</legend>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="attendance" value="si" required />
+                    <span>Si 😊</span>
+                  </label>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="attendance" value="no" required />
+                    <span>No 😢</span>
+                  </label>
+                </fieldset>
+              </div>
+
+              <div class="rsvp-step" data-step="bus">
+                <fieldset class="rsvp-choice">
+                  <legend>¿Necesita autobús?</legend>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="bus" value="si" required />
+                    <span>Si</span>
+                  </label>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="bus" value="no" required />
+                    <span>No</span>
+                  </label>
+                </fieldset>
+              </div>
+
+              <div class="rsvp-step" data-step="childMenu" hidden>
+                <fieldset class="rsvp-choice">
+                  <legend>¿Quieres menu infantil?</legend>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="childMenu" value="si" />
+                    <span>Si</span>
+                  </label>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="childMenu" value="no" />
+                    <span>No</span>
+                  </label>
+                </fieldset>
+              </div>
+
+              <div class="rsvp-step" data-step="menu">
+                <fieldset class="rsvp-choice">
+                  <legend>Preferencia de plato</legend>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="menu" value="carne" required />
+                    <span>Carne</span>
+                  </label>
+                  <label class="rsvp-choice__option">
+                    <input type="radio" name="menu" value="pescado" required />
+                    <span>Pescado</span>
+                  </label>
+                </fieldset>
+              </div>
+
+              <div class="rsvp-step" data-step="allergies">
+                <label class="field">
+                  <span>Alergias o intolerancias (opcional)</span>
+                  <textarea name="allergies" rows="3" placeholder="Puedes dejarlo vacío"></textarea>
+                </label>
+              </div>
+
+              <div class="rsvp-step" data-step="message">
+                <label class="field">
+                  <span>Mensaje para los novios</span>
+                  <textarea name="message" rows="3" placeholder="Escribe un mensaje bonito"></textarea>
+                </label>
+              </div>
+
+              <div class="inline-actions rsvp-wizard__actions">
+                <button class="button button--ghost" type="button" data-person-prev>Pregunta anterior</button>
+                <button class="button button--primary" type="submit" data-person-next>Siguiente pregunta</button>
+              </div>
+            </form>
+
+            <section class="rsvp-wizard__done" data-done-panel hidden>
+              <div class="rsvp-result" data-result-state="success" aria-live="polite">
+                <div class="rsvp-result__icon" data-result-icon>✓</div>
+                <h3 data-result-title>Confirmación enviada</h3>
+                <p data-result-message>Tu respuesta se ha guardado correctamente.</p>
+                <a class="button button--primary" href="boda.html#confirmacion">Ir a la página de boda</a>
+              </div>
+            </section>
+
+            <p class="share-upload__status" data-rsvp-status></p>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="site-config.js"></script>
+    <script src="rsvp.js"></script>
+  </body>
+</html>

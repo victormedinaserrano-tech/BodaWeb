@@ -1,0 +1,11 @@
+# Entorno y secretos locales
+.venv/
+backend/.env
+backend/.env.*
+!backend/.env.example
+backend/__pycache__/
+*.pyc
+
+# Configuracion local de Wrangler
+workers/boda-api/.dev.vars
+workers/boda-api/.wrangler/

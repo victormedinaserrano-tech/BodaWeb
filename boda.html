@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brenda y Víctor | Boda elegante</title>
+    <meta
+      name="description"
+      content="Portal de boda elegante con información del evento."
+    />
+    <meta name="theme-color" content="#7b8a58" />
+    <meta property="og:title" content="Brenda y Víctor | Boda elegante" />
+    <meta
+      property="og:description"
+      content="Una invitación digital sofisticada con detalles del evento."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="boda-page">
+    <div class="falling" aria-hidden="true"></div>
+    <div class="page-reveal" aria-hidden="true"></div>
+
+    <div class="page-shell">
+      <section class="hero hero--compact" id="inicio">
+        <div class="hero__glow"></div>
+        <div class="hero__intro" aria-label="Presentación de la boda">
+          <p class="hero__intro-line hero__intro-line--names">Brenda y Víctor</p>
+          <figure class="hero__intro-photo">
+            <img src="images.jpg" alt="Fotografía representativa de la pareja" />
+          </figure>
+          <p class="hero__intro-line hero__intro-line--phrase">Para nuestra familia, con todo nuestro amor</p>
+          <p class="hero__intro-line hero__intro-line--date">31 de marzo de 2028</p>
+        </div>
+        <div class="hero__content">
+          <p class="eyebrow">Nos casamos</p>
+          <p class="hero__date">31 de marzo de 2028 · Hacienda El Olivar</p>
+          <div class="countdown" id="countdown" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <main id="contenido">
+        <section class="section section--rsvp" id="confirmacion">
+          <div class="section__heading">
+            <p class="eyebrow">Confirmación de asistencia</p>
+            <h2>Confirma tu asistencia</h2>
+          </div>
+
+          <div class="card rsvp-card">
+            <p>Queremos contar contigo en este día tan especial. Pulsa el botón para dejar tu confirmación de asistencia.</p>
+            <a class="button button--primary" href="rsvp.html" id="rsvp-link">Confirmar asistencia</a>
+          </div>
+        </section>
+
+        <section class="section section--stories" id="historias">
+          <div class="section__heading">
+            <p class="eyebrow">Nuestras historias</p>
+          </div>
+
+          <div class="story-carousel" aria-label="Carrusel de historias en foto">
+            <div class="story-carousel__track" data-story-track>
+              <article class="story-card story-carousel__item is-active">
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 1" />
+                <div class="story-card__caption">
+                  <span>Primer recuerdo</span>
+                  <p>Un día que nos hizo sonreír para siempre.</p>
+                </div>
+              </article>
+
+              <article class="story-card story-carousel__item">
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 2" />
+                <div class="story-card__caption">
+                  <span>Un paseo</span>
+                  <p>Pequeños momentos que se quedaron con nosotros.</p>
+                </div>
+              </article>
+
+              <article class="story-card story-carousel__item">
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 3" />
+                <div class="story-card__caption">
+                  <span>Una tarde especial</span>
+                  <p>Instantes sencillos que lo cambian todo.</p>
+                </div>
+              </article>
+
+              <article class="story-card story-carousel__item">
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 4" />
+                <div class="story-card__caption">
+                  <span>Con familia</span>
+                  <p>Recuerdos que nos unen y nos acompañan.</p>
+                </div>
+              </article>
+
+              <article class="story-card story-carousel__item">
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 5" />
+                <div class="story-card__caption">
+                  <span>Siempre juntos</span>
+                  <p>Una historia que sigue creciendo foto a foto.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="evento">
+          <div class="section__heading">
+            <p class="eyebrow">Información del evento</p>
+          </div>
+
+          <div class="event-grid">
+            <article class="card event-card">
+              <img class="event-card__image" src="images.jpg" alt="Imagen provisional de la ceremonia" />
+              <p class="event-card__label">
+                <img class="event-card__label-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
+                Ceremonia
+              </p>
+              <h3>31 de marzo de 2028 · 17:30 h</h3>
+              <p><strong>C. Natividad, 24</strong></p>
+              <p>45160 Guadamur, Toledo</p>
+              <p>
+                <img class="event-card__inline-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
+                <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd6a73005f28ddb7:0x6d152ac13e56728e?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noreferrer">
+                  Ver ubicación en Google Maps
+                </a>
+              </p>
+              <p>Recepción de invitados desde 17:00 h.</p>
+            </article>
+
+            <article class="card event-card">
+              <img class="event-card__image" src="images.jpg" alt="Imagen provisional del banquete" />
+              <p class="event-card__label">
+                <img class="event-card__label-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
+                Banquete
+              </p>
+              <h3>31 de marzo de 2028 · 20:00 h</h3>
+              <p><strong>CM-4000, 23</strong></p>
+              <p>45521 Burujón, Toledo</p>
+              <p>
+                <img class="event-card__inline-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
+                <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0xd41d61e6127016b:0x22a11fbab74259f6?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noreferrer">
+                  Ver ubicación en Google Maps
+                </a>
+              </p>
+              <p>Cena, música y fiesta hasta la madrugada.</p>
+            </article>
+
+            <article class="card event-card event-card--shuttle">
+              <div class="shuttle-visual shuttle-visual--compact" aria-hidden="true">
+                <div class="shuttle-visual__node shuttle-visual__node--start">
+                  <span class="shuttle-visual__badge shuttle-visual__badge--start">
+                    <img src="Iconos/pasador-de-ubicacion.png" alt="" />
+                  </span>
+                  <span class="shuttle-visual__node-label">Ceremonia</span>
+                </div>
+
+                <div class="shuttle-visual__route"></div>
+
+                <div class="shuttle-visual__bus shuttle-visual__bus--floating shuttle-visual__bus--forward" role="presentation">
+                  <span class="shuttle-visual__badge shuttle-visual__badge--bus">
+                    <img src="Iconos/autobus-escolar.png" alt="" />
+                  </span>
+                </div>
+
+                <div class="shuttle-visual__node shuttle-visual__node--end">
+                  <span class="shuttle-visual__badge shuttle-visual__badge--end">
+                    <img src="Iconos/pasador-de-ubicacion.png" alt="" />
+                  </span>
+                  <span class="shuttle-visual__node-label">Banquete</span>
+                </div>
+              </div>
+
+              <p class="event-card__label">Autobuses</p>
+              <h3>Autobuses de ida y vuelta</h3>
+              <p>Contamos con autobuses entre la ceremonia y el banquete para que no tengáis que preocuparos por el coche.</p>
+              <p class="event-card__note">Por favor, indicadlo en la confirmación de asistencia para poder organizar mejor los traslados.</p>
+            </article>
+          </div>
+
+          <div class="event-layout">
+            <div class="card schedule-card">
+              <h3>Programa del día</h3>
+              <p class="schedule-intro">Hoy venimos a brindar, bailar y celebrar sin freno hasta que se apague la última canción.</p>
+              <div class="schedule-list">
+                <div class="schedule-list__item"><span>17:30</span><p>Ceremonia</p></div>
+                <div class="schedule-list__item"><span>18:30</span><p>Cóctel y traslado</p></div>
+                <div class="schedule-list__item"><span>20:00</span><p>Banquete</p></div>
+                <div class="schedule-list__item"><span>23:30</span><p>Fiesta</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--share" id="compartir-momentos">
+          <div class="section__heading">
+            <p class="eyebrow">Compartir momentos</p>
+            <p class="share-intro">
+              Queremos ver la boda desde vuestro lado. Comparte aquí los recuerdos que captures durante la celebración.
+            </p>
+          </div>
+
+          <div class="card share-card">
+            <div class="share-card__copy">
+              <p class="share-card__eyebrow">Álbum colaborativo</p>
+              <h3>Captura, elige y guarda el recuerdo</h3>
+              <p>
+                En este espacio se reunirán las fotos que nos enviéis durante la boda para crear un álbum compartido,
+                divertido y cuidado.
+              </p>
+
+              <ul class="share-card__list">
+                <li>Subida desde el móvil o desde la cámara.</li>
+                <li>Varias fotos en un solo envío.</li>
+                <li>Ideal para selfies, baile, mesa y momentos improvisados.</li>
+              </ul>
+            </div>
+
+            <form class="share-upload" data-upload-form novalidate>
+              <input type="hidden" name="guestName" data-guest-name />
+
+              <div class="share-upload__gate" data-upload-gate hidden>
+                <p class="share-upload__gate-title">Antes de subir, dinos tu nombre</p>
+                <div class="share-upload__gate-row">
+                  <input class="share-upload__gate-input" type="text" data-upload-name-input placeholder="Juan Perez" autocomplete="name" />
+                  <button class="button button--primary button--small" type="button" data-upload-name-continue>Continuar</button>
+                </div>
+                <p class="share-upload__gate-hint">Después podrás elegir una o varias fotos de una sola vez.</p>
+              </div>
+
+              <label class="share-dropzone">
+                <input class="share-dropzone__input" type="file" name="photos" accept="image/*" multiple required />
+                <span class="share-dropzone__icon" aria-hidden="true">
+                  <img src="Iconos/instagram.png" alt="" />
+                </span>
+                <figure class="share-dropzone__preview" data-upload-preview hidden>
+                  <img src="" alt="Previsualización de la foto seleccionada" data-upload-preview-image />
+                </figure>
+                <span class="share-dropzone__title">Pulsa aquí para empezar</span>
+                <span class="share-dropzone__copy" data-upload-summary>Primero te pediremos tu nombre y después podrás elegir tus fotos.</span>
+              </label>
+
+              <div class="share-upload__actions">
+                <button class="button button--primary" type="submit" data-upload-button>Subir fotos</button>
+                <p class="share-upload__status" data-upload-status></p>
+              </div>
+            </form>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <script src="site-config.js"></script>
+    <script>
+      (function () {
+        const link = document.getElementById('rsvp-link');
+        if (!link) {
+          return;
+        }
+
+        const googleFormUrl = String(window.WEDDING_RSVP_FORM_URL || '').trim();
+        if (!googleFormUrl) {
+          return;
+        }
+
+        link.href = googleFormUrl;
+      })();
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

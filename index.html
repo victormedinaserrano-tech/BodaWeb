@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brenda y Víctor | Invitación</title>
+    <meta name="description" content="Abre el sobre para acceder a la invitación de boda de Brenda y Víctor." />
+    <meta property="og:title" content="Brenda y Víctor | Invitación" />
+    <meta property="og:description" content="Pulsa sobre el sobre para abrir la invitación." />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="landing.css" />
+  </head>
+  <body>
+    <main class="landing" id="contenido">
+      <div class="falling" aria-hidden="true"></div>
+      <p class="landing__eyebrow">31 de marzo de 2028</p>
+      <h1>Brenda y Víctor</h1>
+      <p class="landing__intro">Toca el sobre para abrir la invitación</p>
+
+      <button class="envelope" id="open-invitation" type="button" aria-label="Abrir invitación">
+        <span class="envelope__left" aria-hidden="true"></span>
+        <span class="envelope__right" aria-hidden="true"></span>
+        <span class="envelope__bottom" aria-hidden="true"></span>
+        <span class="envelope__flap" aria-hidden="true"></span>
+        <span class="envelope__seal" aria-hidden="true">❤</span>
+      </button>
+    </main>
+
+    <script src="landing.js"></script>
+  </body>
+</html>
