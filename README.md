@@ -1,24 +1,30 @@
-# BodaWeb
+# Worker de fotos
 
-Web estatica preparada para GitHub Pages con fotos gestionadas por un Cloudflare Worker y Cloudinary.
+Este Worker implementa `POST /api/photos` para GitHub Pages y Cloudinary.
 
-## Subir a GitHub
+## Configuracion
 
-En la pantalla de carga de GitHub, selecciona todos los archivos y carpetas de esta raiz excepto:
+1. Instala Wrangler: `npm install -g wrangler`.
+2. Inicia sesion: `wrangler login`.
+3. Edita `wrangler.toml` y sustituye `ALLOWED_ORIGIN` por el origen exacto de GitHub Pages, sin barra final.
+4. Desde esta carpeta, crea los secretos:
 
-- `.venv/`
-- `backend/`
-- `github-pages/` (esta vacia y no se utiliza)
+```text
+wrangler secret put CLOUDINARY_CLOUD_NAME
+wrangler secret put CLOUDINARY_API_KEY
+wrangler secret put CLOUDINARY_API_SECRET
+```
 
-No subas nunca `backend/.env`. El archivo `.gitignore` ya protege estos elementos si mas adelante usas Git desde el ordenador.
+5. Publica el Worker:
 
-Despues activa GitHub Pages en `Settings > Pages`, con la rama `main` y la carpeta `/ (root)`.
+```text
+wrangler deploy
+```
 
-## Antes de publicar las fotos
+6. Copia la URL entregada, termina en `/api/photos`, y escribela en `site-config.js`:
 
-1. Despliega el Worker de [workers/boda-api](workers/boda-api).
-2. Crea los secretos de Cloudinary en Cloudflare siguiendo la guia de esa carpeta.
-3. Copia la URL del Worker en `site-config.js` como `WEDDING_UPLOAD_ENDPOINT` y vuelve a subir ese archivo a GitHub.
-4. Cuando tengas el Google Form, pega su URL publica como `WEDDING_RSVP_FORM_URL` en `site-config.js` y vuelve a subirlo.
+```js
+window.WEDDING_UPLOAD_ENDPOINT = 'https://boda-api.TU_SUBDOMINIO.workers.dev/api/photos';
+```
 
-La guia completa se encuentra en [DESPLIEGUE_GITHUB_CLOUDFLARE.md](DESPLIEGUE_GITHUB_CLOUDFLARE.md).
+No guardes secretos en este repositorio ni en `site-config.js`.

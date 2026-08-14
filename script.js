@@ -428,10 +428,13 @@ function initPhotoUploadForm() {
       }, 1400);
     } catch (error) {
       const isLocalEndpoint = photoUploadEndpoint.includes('localhost') || photoUploadEndpoint.includes('127.0.0.1');
-      const isNetworkError = error instanceof TypeError && error.message === 'Failed to fetch';
-      const message = isNetworkError && isLocalEndpoint
-        ? 'No se puede conectar con el servidor de fotos local. Inicia el backend y configura CLOUDINARY_URL.'
-        : (error instanceof Error ? error.message : 'No se ha podido completar la subida.');
+      const isNetworkError = error instanceof TypeError;
+      let message = error instanceof Error ? error.message : 'No se ha podido completar la subida.';
+      if (isNetworkError) {
+        message = isLocalEndpoint
+          ? 'No se puede conectar con el servidor de fotos local. Inicia el backend y configura CLOUDINARY_URL.'
+          : 'No se ha podido conectar con el servidor de fotos. Revisa la conexion o intentalo de nuevo en unos minutos.';
+      }
       setStatus(message, 'is-error');
     } finally {
       if (submitButton) {
