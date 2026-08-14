@@ -221,17 +221,6 @@
             </div>
 
             <form class="share-upload" data-upload-form novalidate>
-              <input type="hidden" name="guestName" data-guest-name />
-
-              <div class="share-upload__gate" data-upload-gate hidden>
-                <p class="share-upload__gate-title">Antes de subir, dinos tu nombre</p>
-                <div class="share-upload__gate-row">
-                  <input class="share-upload__gate-input" type="text" data-upload-name-input placeholder="Juan Perez" autocomplete="name" />
-                  <button class="button button--primary button--small" type="button" data-upload-name-continue>Continuar</button>
-                </div>
-                <p class="share-upload__gate-hint">Después podrás elegir una o varias fotos de una sola vez.</p>
-              </div>
-
               <label class="share-dropzone">
                 <input class="share-dropzone__input" type="file" name="photos" accept="image/*" multiple required />
                 <span class="share-dropzone__icon" aria-hidden="true">
@@ -240,8 +229,8 @@
                 <figure class="share-dropzone__preview" data-upload-preview hidden>
                   <img src="" alt="Previsualización de la foto seleccionada" data-upload-preview-image />
                 </figure>
-                <span class="share-dropzone__title">Pulsa aquí para empezar</span>
-                <span class="share-dropzone__copy" data-upload-summary>Primero te pediremos tu nombre y después podrás elegir tus fotos.</span>
+                <span class="share-dropzone__title">Pulsa aquí para elegir tus fotos</span>
+                <span class="share-dropzone__copy" data-upload-summary>Puedes seleccionar una o varias fotos de una sola vez.</span>
               </label>
 
               <div class="share-upload__actions">

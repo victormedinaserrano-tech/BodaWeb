@@ -189,10 +189,6 @@ function initPhotoUploadForm() {
     return;
   }
 
-  const guestNameField = form.querySelector('[data-guest-name]');
-  const gate = form.querySelector('[data-upload-gate]');
-  const guestNameInput = form.querySelector('[data-upload-name-input]');
-  const guestNameContinue = form.querySelector('[data-upload-name-continue]');
   const fileInput = form.querySelector('input[name="photos"]');
   const status = form.querySelector('[data-upload-status]');
   const summary = form.querySelector('[data-upload-summary]');
@@ -201,9 +197,6 @@ function initPhotoUploadForm() {
   const preview = form.querySelector('[data-upload-preview]');
   const previewImage = form.querySelector('[data-upload-preview-image]');
   const submitButton = form.querySelector('[data-upload-button]');
-  const dropzone = form.querySelector('.share-dropzone');
-
-  let guestName = '';
 
   const setStatus = (message, kind) => {
     if (!status) {
@@ -226,26 +219,12 @@ function initPhotoUploadForm() {
   };
 
   const resetUploadFlow = () => {
-    guestName = '';
-
-    if (guestNameField) {
-      guestNameField.value = '';
-    }
-
-    if (guestNameInput) {
-      guestNameInput.value = '';
-    }
-
     if (fileInput) {
       fileInput.value = '';
     }
 
-    if (gate) {
-      gate.hidden = true;
-    }
-
     if (summary) {
-      summary.textContent = 'Primero te pediremos tu nombre y después podrás elegir tus fotos.';
+      summary.textContent = 'Puedes seleccionar una o varias fotos de una sola vez.';
     }
 
     setDropzoneTitleVisible(true);
@@ -286,12 +265,10 @@ function initPhotoUploadForm() {
   const updateSummary = () => {
     if (!summary || !fileInput || !fileInput.files || fileInput.files.length === 0) {
       if (summary) {
-        summary.textContent = guestName
-          ? 'Puedes elegir tus fotos cuando quieras.'
-          : 'Primero te pediremos tu nombre y después podrás elegir tus fotos.';
+        summary.textContent = 'Puedes seleccionar una o varias fotos de una sola vez.';
       }
 
-      setDropzoneTitleVisible(!guestName);
+      setDropzoneTitleVisible(true);
       clearPreview();
       return;
     }
@@ -305,37 +282,6 @@ function initPhotoUploadForm() {
     setPreviewFromFile(files[0]);
   };
 
-  const confirmGuestName = () => {
-    const value = guestNameInput && guestNameInput.value ? guestNameInput.value.trim() : '';
-
-    if (!value) {
-      setStatus('Escribe tu nombre para continuar.', 'is-error');
-      if (guestNameInput) {
-        guestNameInput.focus();
-      }
-      return false;
-    }
-
-    guestName = value;
-    if (guestNameField) {
-      guestNameField.value = guestName;
-    }
-
-    if (gate) {
-      gate.hidden = true;
-    }
-
-    setDropzoneTitleVisible(false);
-
-    setStatus(`Perfecto, ${guestName}. Ahora elige tus fotos.`, null);
-
-    if (dropzone) {
-      dropzone.click();
-    }
-
-    return true;
-  };
-
   if (fileInput) {
     fileInput.addEventListener('change', updateSummary);
   }
@@ -343,48 +289,10 @@ function initPhotoUploadForm() {
   setDropzoneTitleVisible(true);
   clearPreview();
 
-  if (guestNameContinue) {
-    guestNameContinue.addEventListener('click', () => {
-      confirmGuestName();
-    });
-  }
-
-  if (guestNameInput) {
-    guestNameInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        confirmGuestName();
-      }
-    });
-  }
-
-  if (dropzone) {
-    dropzone.addEventListener('click', (event) => {
-      if (!guestName) {
-        event.preventDefault();
-
-        if (gate) {
-          gate.hidden = false;
-        }
-
-        if (guestNameInput) {
-          guestNameInput.focus();
-        }
-        return;
-      }
-    });
-  }
-
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    const currentGuestName = (guestNameField && guestNameField.value ? guestNameField.value.trim() : guestName);
     const files = fileInput && fileInput.files ? Array.from(fileInput.files) : [];
-
-    if (!currentGuestName) {
-      setStatus('Pulsa la casilla para indicar tu nombre primero.', 'is-error');
-      return;
-    }
 
     if (!files.length) {
       setStatus('Selecciona una o varias fotos para continuar.', 'is-error');
@@ -400,7 +308,6 @@ function initPhotoUploadForm() {
     }
 
     const formData = new FormData();
-    formData.append('guestName', currentGuestName);
     files.forEach((file) => formData.append('photos', file));
 
     if (submitButton) {
@@ -421,7 +328,7 @@ function initPhotoUploadForm() {
         throw new Error(payload.error || 'No se ha podido completar la subida.');
       }
 
-      setStatus(`Fotos subidas correctamente para ${payload.guestName || currentGuestName}.`, 'is-success');
+      setStatus(files.length === 1 ? 'Foto subida correctamente. ¡Gracias!' : 'Fotos subidas correctamente. ¡Gracias!', 'is-success');
       window.setTimeout(() => {
         resetUploadFlow();
         setStatus('', null);
