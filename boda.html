@@ -30,7 +30,7 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=5" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body class="boda-page">
     <div class="falling" aria-hidden="true"></div>
@@ -246,6 +246,14 @@
                 <button class="button button--primary" type="submit" data-upload-button>Subir fotos</button>
                 <p class="share-upload__status" data-upload-status></p>
               </div>
+
+              <div class="upload-result" data-upload-progress hidden aria-live="polite">
+                <div class="upload-result__icon">
+                  <img class="upload-result__spinner" src="Iconos/esperar.png" alt="" onerror="this.remove()" />
+                </div>
+                <p class="upload-result__title" data-upload-progress-title>Espere, se están cargando sus fotos</p>
+                <p class="upload-result__message" data-upload-progress-message>No cierres esta ventana.</p>
+              </div>
             </form>
           </div>
         </section>
@@ -253,7 +261,7 @@
       </main>
     </div>
 
-    <script src="site-config.js?v=5"></script>
+    <script src="site-config.js?v=6"></script>
     <script>
       (function () {
         const link = document.getElementById('rsvp-link');
@@ -269,6 +277,6 @@
         link.href = googleFormUrl;
       })();
     </script>
-    <script src="script.js?v=5" defer></script>
+    <script src="script.js?v=6" defer></script>
   </body>
 </html>

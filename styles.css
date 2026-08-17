@@ -23,6 +23,11 @@
   box-sizing: border-box;
 }
 
+/* Las reglas con `display` explicito anulan el atributo hidden si no se fuerza. */
+[hidden] {
+  display: none !important;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -107,10 +112,6 @@ iframe {
 
 img {
   display: block;
-}
-
-img[hidden] {
-  display: none;
 }
 
 a {
@@ -2532,6 +2533,7 @@ body.rsvp-page {
 }
 
 .rsvp-result__icon {
+  position: relative;
   width: 78px;
   height: 78px;
   border-radius: 50%;
@@ -2556,13 +2558,24 @@ body.rsvp-page {
 
 .rsvp-result[data-result-state='loading'] .rsvp-result__icon {
   background: rgba(215, 161, 180, 0.14);
-  border-color: rgba(215, 161, 180, 0.42);
+  border-color: transparent;
+}
+
+/* Anillo en CSS: se ve aunque el icono esperar.png no cargue. */
+.rsvp-result[data-result-state='loading'] .rsvp-result__icon::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 4px solid rgba(215, 161, 180, 0.3);
+  border-top-color: var(--olive-dark);
+  animation: rsvp-spin 1s linear infinite;
 }
 
 .rsvp-result__spinner {
-  width: 42px;
-  height: 42px;
-  animation: rsvp-spin 1.1s linear infinite;
+  width: 40px;
+  height: 40px;
+  animation: rsvp-pulse 1.4s ease-in-out infinite;
 }
 
 @keyframes rsvp-spin {
@@ -2571,9 +2584,67 @@ body.rsvp-page {
   }
 }
 
+@keyframes rsvp-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.9);
+  }
+}
+
 .rsvp-result h3,
 .rsvp-result p {
   margin: 0;
+}
+
+.upload-result {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 1rem 0.6rem 0.2rem;
+}
+
+.upload-result__icon {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(215, 161, 180, 0.14);
+}
+
+/* Anillo en CSS: se ve aunque el icono esperar.png no cargue. */
+.upload-result__icon::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 4px solid rgba(215, 161, 180, 0.3);
+  border-top-color: var(--olive-dark);
+  animation: rsvp-spin 1s linear infinite;
+}
+
+.upload-result__spinner {
+  width: 34px;
+  height: 34px;
+  animation: rsvp-pulse 1.4s ease-in-out infinite;
+}
+
+.upload-result__title {
+  margin: 0;
+  font-weight: 600;
+}
+
+.upload-result__message {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
 @media (max-width: 680px) {
@@ -2627,5 +2698,15 @@ body.rsvp-page {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .rsvp-result[data-result-state='loading'] .rsvp-result__icon::before {
+    animation-duration: 1s !important;
+    animation-iteration-count: infinite !important;
+  }
+
+  .upload-result__icon::before {
+    animation-duration: 1s !important;
+    animation-iteration-count: infinite !important;
   }
 }

@@ -250,6 +250,36 @@ function initPhotoUploadForm() {
   const preview = form.querySelector('[data-upload-preview]');
   const previewImage = form.querySelector('[data-upload-preview-image]');
   const submitButton = form.querySelector('[data-upload-button]');
+  const progressPanel = form.querySelector('[data-upload-progress]');
+  const progressTitle = form.querySelector('[data-upload-progress-title]');
+  const progressMessage = form.querySelector('[data-upload-progress-message]');
+  const actions = form.querySelector('.share-upload__actions');
+
+  const showProgress = (title, message) => {
+    if (!progressPanel) {
+      return;
+    }
+
+    progressPanel.hidden = false;
+    if (actions) {
+      actions.hidden = true;
+    }
+    if (progressTitle) {
+      progressTitle.textContent = title;
+    }
+    if (progressMessage) {
+      progressMessage.textContent = message;
+    }
+  };
+
+  const hideProgress = () => {
+    if (progressPanel) {
+      progressPanel.hidden = true;
+    }
+    if (actions) {
+      actions.hidden = false;
+    }
+  };
 
   const setStatus = (message, kind) => {
     if (!status) {
@@ -369,7 +399,8 @@ function initPhotoUploadForm() {
       submitButton.disabled = true;
     }
 
-    setStatus('Preparando fotos...', null);
+    setStatus('', null);
+    showProgress('Espere, se están cargando sus fotos', 'Preparando las imágenes...');
 
     try {
       const optimized = [];
@@ -383,7 +414,7 @@ function initPhotoUploadForm() {
         const formData = new FormData();
         batch.forEach((file) => formData.append('photos', file));
 
-        setStatus(`Subiendo fotos... ${sent}/${optimized.length}`, null);
+        showProgress('Espere, se están cargando sus fotos', `Enviando ${sent} de ${optimized.length}. No cierres esta ventana.`);
 
         const response = await fetch(photoUploadEndpoint, {
           method: 'POST',
@@ -399,6 +430,9 @@ function initPhotoUploadForm() {
         sent += batch.length;
       }
 
+      // Espera minima para que el aviso no desaparezca de golpe si el servidor responde muy rapido.
+      await new Promise((resolve) => window.setTimeout(resolve, 600));
+      hideProgress();
       setStatus(files.length === 1 ? 'Foto subida correctamente. ¡Gracias!' : 'Fotos subidas correctamente. ¡Gracias!', 'is-success');
       window.setTimeout(() => {
         resetUploadFlow();
@@ -415,6 +449,7 @@ function initPhotoUploadForm() {
       }
       setStatus(message, 'is-error');
     } finally {
+      hideProgress();
       if (submitButton) {
         submitButton.disabled = false;
       }
