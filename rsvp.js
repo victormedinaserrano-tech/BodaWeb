@@ -15,6 +15,9 @@ function initRsvpWizard() {
   const questionProgress = wizard.querySelector('[data-question-progress]');
   const resultCard = wizard.querySelector('[data-result-state]');
   const resultIcon = wizard.querySelector('[data-result-icon]');
+  const resultIconText = wizard.querySelector('[data-result-icon-text]');
+  const resultSpinner = wizard.querySelector('[data-result-spinner]');
+  const resultLink = wizard.querySelector('[data-result-link]');
   const resultTitle = wizard.querySelector('[data-result-title]');
   const resultMessage = wizard.querySelector('[data-result-message]');
 
@@ -73,8 +76,29 @@ function initRsvpWizard() {
     donePanel.hidden = false;
     resultCard.setAttribute('data-result-state', kind);
 
+    if (resultSpinner) {
+      resultSpinner.hidden = kind !== 'loading';
+    }
+    if (resultIconText) {
+      resultIconText.hidden = kind === 'loading';
+    }
+    if (resultLink) {
+      resultLink.hidden = kind === 'loading';
+    }
+
+    if (kind === 'loading') {
+      resultTitle.textContent = 'Espere, se están cargando sus datos';
+      resultMessage.textContent = 'Estamos guardando vuestra confirmación. No cierres esta ventana.';
+      if (progress) {
+        progress.textContent = 'Paso 2 de 2 · Enviando';
+      }
+      return;
+    }
+
     if (kind === 'error') {
-      resultIcon.textContent = '!';
+      if (resultIconText) {
+        resultIconText.textContent = '!';
+      }
       resultTitle.textContent = 'No se pudo completar la confirmación';
       resultMessage.textContent = 'Ha surgido un error. Por favor, ponte en contacto con los novios para confirmar tu asistencia.';
       if (progress) {
@@ -83,7 +107,9 @@ function initRsvpWizard() {
       return;
     }
 
-    resultIcon.textContent = '✓';
+    if (resultIconText) {
+      resultIconText.textContent = '✓';
+    }
     resultTitle.textContent = 'Confirmación enviada';
     resultMessage.textContent = 'Tu respuesta se ha registrado correctamente. Gracias por confirmar.';
     if (progress) {
@@ -597,6 +623,7 @@ function initRsvpWizard() {
         const isLast = currentPersonIndex === totalPeople - 1;
         if (isLast) {
           nextButton.disabled = true;
+          showDoneResult('loading');
           await submitGroupToServer();
           showDoneResult('success');
           setStatus('', null);

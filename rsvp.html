@@ -19,7 +19,7 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body class="boda-page is-visible rsvp-page">
     <div class="page-shell">
@@ -158,10 +158,13 @@
 
             <section class="rsvp-wizard__done" data-done-panel hidden>
               <div class="rsvp-result" data-result-state="success" aria-live="polite">
-                <div class="rsvp-result__icon" data-result-icon>✓</div>
+                <div class="rsvp-result__icon" data-result-icon>
+                  <span data-result-icon-text>✓</span>
+                  <img class="rsvp-result__spinner" src="Iconos/esperar.png" alt="" data-result-spinner hidden />
+                </div>
                 <h3 data-result-title>Confirmación enviada</h3>
                 <p data-result-message>Tu respuesta se ha guardado correctamente.</p>
-                <a class="button button--primary" href="boda.html#confirmacion">Ir a la página de boda</a>
+                <a class="button button--primary" href="boda.html#confirmacion" data-result-link>Ir a la página de boda</a>
               </div>
             </section>
 
@@ -171,7 +174,7 @@
       </main>
     </div>
 
-    <script src="site-config.js?v=3"></script>
-    <script src="rsvp.js?v=3" defer></script>
+    <script src="site-config.js?v=4"></script>
+    <script src="rsvp.js?v=4" defer></script>
   </body>
 </html>
