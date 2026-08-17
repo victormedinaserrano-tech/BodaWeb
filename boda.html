@@ -17,11 +17,20 @@
     <meta property="og:type" content="website" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="images.jpg" fetchpriority="high" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="stylesheet" href="styles.css" />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Dancing+Script:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body class="boda-page">
     <div class="falling" aria-hidden="true"></div>
@@ -33,7 +42,7 @@
         <div class="hero__intro" aria-label="Presentación de la boda">
           <p class="hero__intro-line hero__intro-line--names">Brenda y Víctor</p>
           <figure class="hero__intro-photo">
-            <img src="images.jpg" alt="Fotografía representativa de la pareja" />
+            <img src="images.jpg" alt="Fotografía representativa de la pareja" decoding="async" fetchpriority="high" />
           </figure>
           <p class="hero__intro-line hero__intro-line--phrase">Para nuestra familia, con todo nuestro amor</p>
           <p class="hero__intro-line hero__intro-line--date">31 de marzo de 2028</p>
@@ -66,7 +75,7 @@
           <div class="story-carousel" aria-label="Carrusel de historias en foto">
             <div class="story-carousel__track" data-story-track>
               <article class="story-card story-carousel__item is-active">
-                <img src="images.jpg" alt="Historia fotográfica de la pareja 1" />
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 1" loading="lazy" decoding="async" />
                 <div class="story-card__caption">
                   <span>Primer recuerdo</span>
                   <p>Un día que nos hizo sonreír para siempre.</p>
@@ -74,7 +83,7 @@
               </article>
 
               <article class="story-card story-carousel__item">
-                <img src="images.jpg" alt="Historia fotográfica de la pareja 2" />
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 2" loading="lazy" decoding="async" />
                 <div class="story-card__caption">
                   <span>Un paseo</span>
                   <p>Pequeños momentos que se quedaron con nosotros.</p>
@@ -82,7 +91,7 @@
               </article>
 
               <article class="story-card story-carousel__item">
-                <img src="images.jpg" alt="Historia fotográfica de la pareja 3" />
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 3" loading="lazy" decoding="async" />
                 <div class="story-card__caption">
                   <span>Una tarde especial</span>
                   <p>Instantes sencillos que lo cambian todo.</p>
@@ -90,7 +99,7 @@
               </article>
 
               <article class="story-card story-carousel__item">
-                <img src="images.jpg" alt="Historia fotográfica de la pareja 4" />
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 4" loading="lazy" decoding="async" />
                 <div class="story-card__caption">
                   <span>Con familia</span>
                   <p>Recuerdos que nos unen y nos acompañan.</p>
@@ -98,7 +107,7 @@
               </article>
 
               <article class="story-card story-carousel__item">
-                <img src="images.jpg" alt="Historia fotográfica de la pareja 5" />
+                <img src="images.jpg" alt="Historia fotográfica de la pareja 5" loading="lazy" decoding="async" />
                 <div class="story-card__caption">
                   <span>Siempre juntos</span>
                   <p>Una historia que sigue creciendo foto a foto.</p>
@@ -115,7 +124,7 @@
 
           <div class="event-grid">
             <article class="card event-card">
-              <img class="event-card__image" src="images.jpg" alt="Imagen provisional de la ceremonia" />
+              <img class="event-card__image" src="images.jpg" alt="Imagen provisional de la ceremonia" loading="lazy" decoding="async" />
               <p class="event-card__label">
                 <img class="event-card__label-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
                 Ceremonia
@@ -133,7 +142,7 @@
             </article>
 
             <article class="card event-card">
-              <img class="event-card__image" src="images.jpg" alt="Imagen provisional del banquete" />
+              <img class="event-card__image" src="images.jpg" alt="Imagen provisional del banquete" loading="lazy" decoding="async" />
               <p class="event-card__label">
                 <img class="event-card__label-icon" src="Iconos/pasador-de-ubicacion.png" alt="" aria-hidden="true" />
                 Banquete
@@ -163,7 +172,7 @@
 
                 <div class="shuttle-visual__bus shuttle-visual__bus--floating shuttle-visual__bus--forward" role="presentation">
                   <span class="shuttle-visual__badge shuttle-visual__badge--bus">
-                    <img src="Iconos/autobus-escolar.png" alt="" />
+                    <img src="Iconos/autobus-escolar.png" alt="" loading="lazy" decoding="async" />
                   </span>
                 </div>
 
@@ -224,7 +233,7 @@
               <label class="share-dropzone">
                 <input class="share-dropzone__input" type="file" name="photos" accept="image/*" multiple required />
                 <span class="share-dropzone__icon" aria-hidden="true">
-                  <img src="Iconos/instagram.png" alt="" />
+                  <img src="Iconos/instagram.png" alt="" loading="lazy" decoding="async" width="28" height="28" />
                 </span>
                 <figure class="share-dropzone__preview" data-upload-preview hidden>
                   <img src="" alt="Previsualización de la foto seleccionada" data-upload-preview-image />
@@ -244,7 +253,7 @@
       </main>
     </div>
 
-    <script src="site-config.js"></script>
+    <script src="site-config.js?v=3"></script>
     <script>
       (function () {
         const link = document.getElementById('rsvp-link');
@@ -260,6 +269,6 @@
         link.href = googleFormUrl;
       })();
     </script>
-    <script src="script.js"></script>
+    <script src="script.js?v=3" defer></script>
   </body>
 </html>

@@ -42,7 +42,12 @@ function seedFallingNature() {
     return;
   }
 
-  const itemCount = window.matchMedia('(max-width: 540px)').matches ? 18 : 30;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const itemCount = window.matchMedia('(max-width: 540px)').matches ? 10 : 20;
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < itemCount; i += 1) {
     const item = document.createElement('span');
@@ -62,8 +67,10 @@ function seedFallingNature() {
     item.style.setProperty('--rot-start', `${(Math.random() * 360).toFixed(0)}deg`);
     item.style.setProperty('--rot-end', `${(220 + Math.random() * 520).toFixed(0)}deg`);
 
-    fallingLayer.appendChild(item);
+    fragment.appendChild(item);
   }
+
+  fallingLayer.appendChild(fragment);
 }
 
 function animateHandwritingText() {
@@ -183,6 +190,52 @@ function initShuttleBusDirection() {
   startPass();
 }
 
+const MAX_UPLOAD_DIMENSION = 1920;
+const UPLOAD_QUALITY = 0.82;
+const CLIENT_BATCH_SIZE = 4;
+const COMPRESSIBLE_TYPES = new Set(['image/jpeg', 'image/jpg', 'image/png', 'image/webp']);
+const COMPRESSION_MIN_SIZE = 400 * 1024;
+
+// Reduce la foto en el navegador: es lo que mas acelera la subida desde el movil.
+async function compressImage(file) {
+  if (!COMPRESSIBLE_TYPES.has(String(file.type).toLowerCase()) || file.size < COMPRESSION_MIN_SIZE) {
+    return file;
+  }
+
+  if (typeof createImageBitmap !== 'function') {
+    return file;
+  }
+
+  try {
+    const bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' });
+    const scale = Math.min(1, MAX_UPLOAD_DIMENSION / Math.max(bitmap.width, bitmap.height));
+    const width = Math.max(1, Math.round(bitmap.width * scale));
+    const height = Math.max(1, Math.round(bitmap.height * scale));
+
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const context = canvas.getContext('2d');
+    context.drawImage(bitmap, 0, 0, width, height);
+    if (typeof bitmap.close === 'function') {
+      bitmap.close();
+    }
+
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', UPLOAD_QUALITY));
+    canvas.width = 0;
+    canvas.height = 0;
+
+    if (!blob || blob.size >= file.size) {
+      return file;
+    }
+
+    const baseName = String(file.name || 'foto').replace(/\.[^/.]+$/, '');
+    return new File([blob], `${baseName}.jpg`, { type: 'image/jpeg', lastModified: Date.now() });
+  } catch (error) {
+    return file;
+  }
+}
+
 function initPhotoUploadForm() {
   const form = document.querySelector('[data-upload-form]');
   if (!form) {
@@ -231,9 +284,16 @@ function initPhotoUploadForm() {
     clearPreview();
   };
 
+  let previewObjectUrl = '';
+
   const clearPreview = () => {
+    if (previewObjectUrl) {
+      URL.revokeObjectURL(previewObjectUrl);
+      previewObjectUrl = '';
+    }
+
     if (previewImage) {
-      previewImage.src = '';
+      previewImage.removeAttribute('src');
     }
 
     if (preview) {
@@ -251,15 +311,13 @@ function initPhotoUploadForm() {
       return;
     }
 
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-      previewImage.src = typeof reader.result === 'string' ? reader.result : '';
-      preview.hidden = false;
-      if (dropzoneIcon) {
-        dropzoneIcon.hidden = true;
-      }
-    });
-    reader.readAsDataURL(file);
+    clearPreview();
+    previewObjectUrl = URL.createObjectURL(file);
+    previewImage.src = previewObjectUrl;
+    preview.hidden = false;
+    if (dropzoneIcon) {
+      dropzoneIcon.hidden = true;
+    }
   };
 
   const updateSummary = () => {
@@ -307,25 +365,38 @@ function initPhotoUploadForm() {
       return;
     }
 
-    const formData = new FormData();
-    files.forEach((file) => formData.append('photos', file));
-
     if (submitButton) {
       submitButton.disabled = true;
     }
 
-    setStatus('Subiendo fotos...', null);
+    setStatus('Preparando fotos...', null);
 
     try {
-      const response = await fetch(photoUploadEndpoint, {
-        method: 'POST',
-        body: formData,
-      });
+      const optimized = [];
+      for (const file of files) {
+        optimized.push(await compressImage(file));
+      }
 
-      const payload = await response.json().catch(() => ({}));
+      let sent = 0;
+      for (let start = 0; start < optimized.length; start += CLIENT_BATCH_SIZE) {
+        const batch = optimized.slice(start, start + CLIENT_BATCH_SIZE);
+        const formData = new FormData();
+        batch.forEach((file) => formData.append('photos', file));
 
-      if (!response.ok) {
-        throw new Error(payload.error || 'No se ha podido completar la subida.');
+        setStatus(`Subiendo fotos... ${sent}/${optimized.length}`, null);
+
+        const response = await fetch(photoUploadEndpoint, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(payload.error || 'No se ha podido completar la subida.');
+        }
+
+        sent += batch.length;
       }
 
       setStatus(files.length === 1 ? 'Foto subida correctamente. ¡Gracias!' : 'Fotos subidas correctamente. ¡Gracias!', 'is-success');

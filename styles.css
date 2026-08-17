@@ -65,6 +65,7 @@ body::after {
   inset: -10% 0 0 0;
   pointer-events: none;
   z-index: 0;
+  contain: strict;
 }
 
 .fall-item {
@@ -97,7 +98,6 @@ body::after {
     radial-gradient(circle at 34% 80%, rgba(244, 197, 217, 0.95) 0 24%, transparent 25%),
     radial-gradient(circle at 66% 80%, rgba(244, 197, 217, 0.95) 0 24%, transparent 25%),
     radial-gradient(circle at center, #f4d79b 0 13%, transparent 14%);
-  filter: drop-shadow(0 2px 2px rgba(120, 84, 100, 0.14));
 }
 
 img,
@@ -203,8 +203,8 @@ body.boda-page.is-visible .page-reveal {
   padding: 1rem clamp(1rem, 3vw, 2rem);
   margin: 0 auto;
   max-width: 1400px;
-  background: rgba(255, 250, 252, 0.82);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 250, 252, 0.94);
+  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(92, 82, 68, 0.08);
 }
 
@@ -626,7 +626,6 @@ main {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
-  backdrop-filter: blur(12px);
 }
 
 .rsvp-card {
@@ -2588,5 +2587,24 @@ body.rsvp-page {
 
   .rsvp-wizard__actions .button {
     width: 100%;
+  }
+}
+
+/* Rendimiento: se reduce el trabajo de animacion cuando el usuario lo pide. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .falling {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

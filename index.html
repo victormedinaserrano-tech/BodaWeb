@@ -13,8 +13,19 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="stylesheet" href="landing.css" />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="landing.css?v=3" />
+    <link rel="prefetch" href="boda.html" as="document" />
+    <link rel="prefetch" href="styles.css?v=3" as="style" />
+    <link rel="prefetch" href="images.jpg" as="image" />
   </head>
   <body>
     <main class="landing" id="contenido">
@@ -32,6 +43,6 @@
       </button>
     </main>
 
-    <script src="landing.js"></script>
+    <script src="landing.js?v=3" defer></script>
   </body>
 </html>

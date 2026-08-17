@@ -8,7 +8,12 @@ function seedFallingNature() {
     return;
   }
 
-  const itemCount = window.matchMedia('(max-width: 540px)').matches ? 18 : 30;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  const itemCount = window.matchMedia('(max-width: 540px)').matches ? 10 : 20;
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < itemCount; i += 1) {
     const item = document.createElement('span');
@@ -28,8 +33,10 @@ function seedFallingNature() {
     item.style.setProperty('--rot-start', `${(Math.random() * 360).toFixed(0)}deg`);
     item.style.setProperty('--rot-end', `${(220 + Math.random() * 520).toFixed(0)}deg`);
 
-    fallingLayer.appendChild(item);
+    fragment.appendChild(item);
   }
+
+  fallingLayer.appendChild(fragment);
 }
 
 seedFallingNature();
