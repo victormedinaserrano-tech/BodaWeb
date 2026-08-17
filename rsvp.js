@@ -624,7 +624,11 @@ function initRsvpWizard() {
         if (isLast) {
           nextButton.disabled = true;
           showDoneResult('loading');
-          await submitGroupToServer();
+          // Espera minima para que el aviso no desaparezca de golpe si el servidor responde muy rapido.
+          await Promise.all([
+            submitGroupToServer(),
+            new Promise((resolve) => window.setTimeout(resolve, 900)),
+          ]);
           showDoneResult('success');
           setStatus('', null);
           return;
